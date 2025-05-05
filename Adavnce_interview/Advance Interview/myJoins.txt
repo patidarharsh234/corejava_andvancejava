@@ -1,0 +1,92 @@
+//yeh common data lekr aati hain dono table ka. 
+## INNER JOIN
+Select *from orders inner join customer on orders.orderid = customer.customerid;
+
+//left table ka sara data laayegi or right table ka matching data laayegi or nhi hoga to NULL lekr aayegi
+##LEFT JOIN
+Select *from customer left join orders on customer.customerid = orders.orderid;
+
+//Right table ka sara data laayegi or left table ka matching data laayegi or nhi hoga to NULL lekr aayegi
+## RIGHT JOIN
+Select *from customer right join orders on customer.customerid = orders.orderid;
+
+//Dono table k pura data lekr aayegi
+##  OUTER JOIN
+SELECT * FROM customer LEFT JOIN orders ON customerid = orderid 
+UNION
+SELECT * FROM customer RIGHT JOIN orders ON customerid = orderid; 
+
+
+//Dono table k unique data ko lekr aati hain
+## FULL OUTER JOIN
+SELECT * FROM customer LEFT JOIN orders ON customerid = orderid
+where orderid is null
+UNION
+SELECT * FROM customer RIGHT JOIN orders ON customerid = orderid
+where customerid is null;
+
+
+
+
+mysql> Select *from orders inner join customer on orders.orderid = customer.customerid;
++---------+-----------+------------+-------+
+| orderid | ordername | customerid | name  |
++---------+-----------+------------+-------+
+|       1 | pen       |          1 | ram   |
+|       2 | beg       |          2 | shyam |
+|       3 | bike      |          3 | amit  |
++---------+-----------+------------+-------+
+3 rows in set (0.00 sec)
+
+
+mysql> Select *from customer left join orders on customer.customerid = orders.orderid;
++------------+-------+---------+-----------+
+| customerid | name  | orderid | ordername |
++------------+-------+---------+-----------+
+|          1 | ram   |       1 | pen       |
+|          2 | shyam |       2 | beg       |
+|          3 | amit  |       3 | bike      |
+|          4 | raj   |    NULL | NULL      |
+|          5 | adesh |    NULL | NULL      |
++------------+-------+---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> Select *from customer right join orders on customer.customerid = orders.orderid;
++------------+-------+---------+-----------+
+| customerid | name  | orderid | ordername |
++------------+-------+---------+-----------+
+|          1 | ram   |       1 | pen       |
+|          2 | shyam |       2 | beg       |
+|          3 | amit  |       3 | bike      |
++------------+-------+---------+-----------+
+3 rows in set (0.00 sec)
+
+//OuterJoins
+mysql> SELECT * FROM customer as s LEFT JOIN orders as c ON s.customerid = c.orderid
+    -> UNION
+    -> SELECT * FROM customer as s RIGHT JOIN orders as c ON s.customerid = c.orderid;
++------------+-------+---------+-----------+
+| customerid | name  | orderid | ordername |
++------------+-------+---------+-----------+
+|          1 | ram   |       1 | pen       |
+|          2 | shyam |       2 | beg       |
+|          3 | amit  |       3 | bike      |
+|          4 | raj   |    NULL | NULL      |
+|          5 | adesh |    NULL | NULL      |
++------------+-------+---------+-----------+
+5 rows in set (0.01 sec)
+
+//FullOuterJoins
+mysql> SELECT * FROM customer as s LEFT JOIN orders as c ON s.customerid = c.orderid
+    -> where  c.orderid is null
+    -> UNION
+    -> SELECT * FROM customer as s RIGHT JOIN orders as c ON s.customerid = c.orderid
+    -> where s.customerid is null;
++------------+-------+---------+-----------+
+| customerid | name  | orderid | ordername |
++------------+-------+---------+-----------+
+|          4 | raj   |    NULL | NULL      |
+|          5 | adesh |    NULL | NULL      |
++------------+-------+---------+-----------+
+2 rows in set (0.00 sec)
+

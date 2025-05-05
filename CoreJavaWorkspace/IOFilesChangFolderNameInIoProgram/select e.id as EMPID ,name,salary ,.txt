@@ -1,0 +1,1 @@
+ select e.id as EMPID ,name,salary ,d.emp_department from empl as e,department as d where e.dep_id=d.id;

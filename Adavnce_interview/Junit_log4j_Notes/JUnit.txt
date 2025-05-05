@@ -1,0 +1,38 @@
+		JUnit
+
+Q. What is the latest version of JUnit?
+A. 5, We use 3.8.1
+
+Q. Which version of JUnit is supporting annotation? Which annotations will be used in JUnit?
+A. 4 or above. @Test, @Ignore, @BeforeClass, @AfterClass, @Before, @After.
+
+Q. What is unit testing?
+A. Testing done by developer is called unit testing and written test code is called unit testcase.
+
+Q. What is regression testing? Give a scenario?
+A. When we test newly developed method along with old method of a class is called regression testing.(Test new method register user() along with add())
+
+Q. What are the lifecycle method of JUnit? How do you define them?
+A. @BeforeClass, @AfterClass, @Before, @After
+
+Q. What are the difference between fail and assert method?
+A. Assert method are used to record failtest. fail() to fail the test on a custom condition.
+
+Q. Which assert method are available to test the different test conditions?
+A. assertTrue() - check true condition
+   assertFalse() - check false condition
+   assertEqual() - check equality of two object
+   assertNotEqual() - check both object are not equal
+   assertNull() - check if object is Null
+   assertNotNull() - check if object is not Null
+
+Q. Who develop unit testcase?
+A. Developer
+
+Q. Who runs unit testcase?
+A. Developer
+
+Q. What is Testsuite? Who runs Testsuite and When?
+A. Testsuite is the set of unit testcase. we can run multiple testcase with the help of Testsuite. Development lead run the Testsuite, after deploing the build.
+
+Log4J version - 1.2.17, latest version - 2.24.0

@@ -1,0 +1,104 @@
+2025-02-25 09:44:07 DEBUG Test_TestLog4j:11 - This is Debug...!!
+2025-02-25 09:44:07 INFO  Test_TestLog4j:12 - This is Info...!!
+2025-02-25 09:44:07 WARN  Test_TestLog4j:13 - This is Warn...!!
+2025-02-25 09:44:07 ERROR Test_TestLog4j:14 - This is Error...!!
+2025-02-25 09:44:07 FATAL Test_TestLog4j:15 - This is Fatal...!!
+2025-02-25 09:44:07 INFO  Test_TestLog4j:25 - Arithmetic Error **=====
+java.lang.ArithmeticException: / by zero
+	at com.in.log4j.Test_TestLog4j.main(Test_TestLog4j.java:19)
+2025-02-25 09:44:10 DEBUG Test_TestLog4j:11 - This is Debug...!!
+2025-02-25 09:44:10 INFO  Test_TestLog4j:12 - This is Info...!!
+2025-02-25 09:44:10 WARN  Test_TestLog4j:13 - This is Warn...!!
+2025-02-25 09:44:10 ERROR Test_TestLog4j:14 - This is Error...!!
+2025-02-25 09:44:10 FATAL Test_TestLog4j:15 - This is Fatal...!!
+2025-02-25 09:44:10 INFO  Test_TestLog4j:25 - Arithmetic Error **=====
+java.lang.ArithmeticException: / by zero
+	at com.in.log4j.Test_TestLog4j.main(Test_TestLog4j.java:19)
+2025-02-25 09:44:11 DEBUG Test_TestLog4j:11 - This is Debug...!!
+2025-02-25 09:44:11 INFO  Test_TestLog4j:12 - This is Info...!!
+2025-02-25 09:44:11 WARN  Test_TestLog4j:13 - This is Warn...!!
+2025-02-25 09:44:11 ERROR Test_TestLog4j:14 - This is Error...!!
+2025-02-25 09:44:11 FATAL Test_TestLog4j:15 - This is Fatal...!!
+2025-02-25 09:44:11 INFO  Test_TestLog4j:25 - Arithmetic Error **=====
+java.lang.ArithmeticException: / by zero
+	at com.in.log4j.Test_TestLog4j.main(Test_TestLog4j.java:19)
+2025-02-25 09:44:13 DEBUG Test_TestLog4j:11 - This is Debug...!!
+2025-02-25 09:44:13 INFO  Test_TestLog4j:12 - This is Info...!!
+2025-02-25 09:44:13 WARN  Test_TestLog4j:13 - This is Warn...!!
+2025-02-25 09:44:13 ERROR Test_TestLog4j:14 - This is Error...!!
+2025-02-25 09:44:13 FATAL Test_TestLog4j:15 - This is Fatal...!!
+2025-02-25 09:44:13 INFO  Test_TestLog4j:25 - Arithmetic Error **=====
+java.lang.ArithmeticException: / by zero
+	at com.in.log4j.Test_TestLog4j.main(Test_TestLog4j.java:19)
+2025-02-25 09:44:15 DEBUG Test_TestLog4j:11 - This is Debug...!!
+2025-02-25 09:44:15 INFO  Test_TestLog4j:12 - This is Info...!!
+2025-02-25 09:44:15 WARN  Test_TestLog4j:13 - This is Warn...!!
+2025-02-25 09:44:15 ERROR Test_TestLog4j:14 - This is Error...!!
+2025-02-25 09:44:15 FATAL Test_TestLog4j:15 - This is Fatal...!!
+2025-02-25 09:44:15 INFO  Test_TestLog4j:25 - Arithmetic Error **=====
+java.lang.ArithmeticException: / by zero
+	at com.in.log4j.Test_TestLog4j.main(Test_TestLog4j.java:19)
+2025-02-25 09:44:16 DEBUG Test_TestLog4j:11 - This is Debug...!!
+2025-02-25 09:44:16 INFO  Test_TestLog4j:12 - This is Info...!!
+2025-02-25 09:44:16 WARN  Test_TestLog4j:13 - This is Warn...!!
+2025-02-25 09:44:16 ERROR Test_TestLog4j:14 - This is Error...!!
+2025-02-25 09:44:16 FATAL Test_TestLog4j:15 - This is Fatal...!!
+2025-02-25 09:44:16 INFO  Test_TestLog4j:25 - Arithmetic Error **=====
+java.lang.ArithmeticException: / by zero
+	at com.in.log4j.Test_TestLog4j.main(Test_TestLog4j.java:19)
+2025-02-25 09:44:18 DEBUG Test_TestLog4j:11 - This is Debug...!!
+2025-02-25 09:44:18 INFO  Test_TestLog4j:12 - This is Info...!!
+2025-02-25 09:44:18 WARN  Test_TestLog4j:13 - This is Warn...!!
+2025-02-25 09:44:18 ERROR Test_TestLog4j:14 - This is Error...!!
+2025-02-25 09:44:18 FATAL Test_TestLog4j:15 - This is Fatal...!!
+2025-02-25 09:44:18 INFO  Test_TestLog4j:25 - Arithmetic Error **=====
+java.lang.ArithmeticException: / by zero
+	at com.in.log4j.Test_TestLog4j.main(Test_TestLog4j.java:19)
+2025-02-25 09:44:20 DEBUG Test_TestLog4j:11 - This is Debug...!!
+2025-02-25 09:44:20 INFO  Test_TestLog4j:12 - This is Info...!!
+2025-02-25 09:44:20 WARN  Test_TestLog4j:13 - This is Warn...!!
+2025-02-25 09:44:20 ERROR Test_TestLog4j:14 - This is Error...!!
+2025-02-25 09:44:20 FATAL Test_TestLog4j:15 - This is Fatal...!!
+2025-02-25 09:44:20 INFO  Test_TestLog4j:25 - Arithmetic Error **=====
+java.lang.ArithmeticException: / by zero
+	at com.in.log4j.Test_TestLog4j.main(Test_TestLog4j.java:19)
+2025-02-25 09:44:21 DEBUG Test_TestLog4j:11 - This is Debug...!!
+2025-02-25 09:44:21 INFO  Test_TestLog4j:12 - This is Info...!!
+2025-02-25 09:44:21 WARN  Test_TestLog4j:13 - This is Warn...!!
+2025-02-25 09:44:21 ERROR Test_TestLog4j:14 - This is Error...!!
+2025-02-25 09:44:21 FATAL Test_TestLog4j:15 - This is Fatal...!!
+2025-02-25 09:44:21 INFO  Test_TestLog4j:25 - Arithmetic Error **=====
+java.lang.ArithmeticException: / by zero
+	at com.in.log4j.Test_TestLog4j.main(Test_TestLog4j.java:19)
+2025-02-25 09:44:24 DEBUG Test_TestLog4j:11 - This is Debug...!!
+2025-02-25 09:44:24 INFO  Test_TestLog4j:12 - This is Info...!!
+2025-02-25 09:44:24 WARN  Test_TestLog4j:13 - This is Warn...!!
+2025-02-25 09:44:24 ERROR Test_TestLog4j:14 - This is Error...!!
+2025-02-25 09:44:24 FATAL Test_TestLog4j:15 - This is Fatal...!!
+2025-02-25 09:44:24 INFO  Test_TestLog4j:25 - Arithmetic Error **=====
+java.lang.ArithmeticException: / by zero
+	at com.in.log4j.Test_TestLog4j.main(Test_TestLog4j.java:19)
+2025-02-25 09:44:26 DEBUG Test_TestLog4j:11 - This is Debug...!!
+2025-02-25 09:44:26 INFO  Test_TestLog4j:12 - This is Info...!!
+2025-02-25 09:44:26 WARN  Test_TestLog4j:13 - This is Warn...!!
+2025-02-25 09:44:26 ERROR Test_TestLog4j:14 - This is Error...!!
+2025-02-25 09:44:26 FATAL Test_TestLog4j:15 - This is Fatal...!!
+2025-02-25 09:44:26 INFO  Test_TestLog4j:25 - Arithmetic Error **=====
+java.lang.ArithmeticException: / by zero
+	at com.in.log4j.Test_TestLog4j.main(Test_TestLog4j.java:19)
+2025-02-25 09:46:13 DEBUG Test_TestLog4j:11 - This is Debug...!!
+2025-02-25 09:46:13 INFO  Test_TestLog4j:12 - This is Info...!!
+2025-02-25 09:46:13 WARN  Test_TestLog4j:13 - This is Warn...!!
+2025-02-25 09:46:13 ERROR Test_TestLog4j:14 - This is Error...!!
+2025-02-25 09:46:13 FATAL Test_TestLog4j:15 - This is Fatal...!!
+2025-02-25 09:46:13 INFO  Test_TestLog4j:25 - Arithmetic Error **=====
+java.lang.ArithmeticException: / by zero
+	at com.in.log4j.Test_TestLog4j.main(Test_TestLog4j.java:19)
+2025-02-25 09:46:14 DEBUG Test_TestLog4j:11 - This is Debug...!!
+2025-02-25 09:46:14 INFO  Test_TestLog4j:12 - This is Info...!!
+2025-02-25 09:46:14 WARN  Test_TestLog4j:13 - This is Warn...!!
+2025-02-25 09:46:14 ERROR Test_TestLog4j:14 - This is Error...!!
+2025-02-25 09:46:14 FATAL Test_TestLog4j:15 - This is Fatal...!!
+2025-02-25 09:46:14 INFO  Test_TestLog4j:25 - Arithmetic Error **=====
+java.lang.ArithmeticException: / by zero
+	at com.in.log4j.Test_TestLog4j.main(Test_TestLog4j.java:19)

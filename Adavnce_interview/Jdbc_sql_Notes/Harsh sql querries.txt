@@ -1,0 +1,1430 @@
+#DataBase show:-show databases;
+#Use Database:- use advance_java;
+#Show Table :- show tables;
+#delete table data:- truncate table emp;
+******************************************************************************************************
+******************************************************************************************************
+CHANGE COLUMN NAME :ALTER TABLE table_name CHANGE COLUMN old_column_name new_column_name VARCHAR(50);
+
+CHANGE TABLE NAME : RENAME TABLE employees_oldtablename TO staff_newtablename;
+
+NOTE:- DATABASE name connote change  by sql cmd .
+******************************************************************************************************
+******************************************************************************************************
+
+#DDL : data definition language [ "CREATE"  DATABASE,TABLE & "ALTER" TABLE  || "DROP" TABLE]
+
+ *CREATE   :-
+
+ DataBase Create:-
+ mysql> create database advance_java;
+
+
+ Table Create:-
+ mysql> create table emp(id int, name varchar(50), salary int ,inserDate timestamp);
+ mysql> create table emp(id int primary key, name varchar(50), salary int);
+ CREATE BY NN AND AI :-create table emp(id int NOT NULL AUTO_INCREMENT PRIMARY KEY, name Varchar(50), salary int );
+
+
+ *ALTER :-
+ Add Column in already create table:- 
+ mysql>alter table emp add salary int;
+
+
+ primery Key :-
+ mysql> alter table parent add primary key(id);
+ CREATED AFTER CREATED TABLE :- alter table emp Modify id int NOT NULL AUTO_INCREMENT ;
+
+
+ foreign Key :-
+ mysql> alter table chiled add foreign Key(parent_id)references parent (id);
+
+
+ *DROP :
+ Drop Column :- (alter) 
+ mysql>alter table emp drop salary int;
+
+ DROP Table  :-
+ mysql> drop table emp;
+
+ Drop Database :-
+ mysql>drop database advance_java;
+
+
+
+
+
+*Extra :
+ DataBase modified:-
+ mysql> use advance_java;
+ 
+ Table Show:-
+ mysql> show tables;
+
+
+TAble Name Change:-
+mysql>RENAME TABLE old_table_name TO new_table_name;
+
+colum Name Change:-
+alter table parent change column oldColumnName  NewColumnName dataDype;
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+#DML : data manipulation language   [TABLE DATA MODIFICATION ]
+
+ INSERT :- insert into emp (emp_id,emp_name,emp_salary,emp_date)values(12,'kapil',1800, '2024-12-23 12:10:00');
+ INSERT :- insert into emp values(12,'kapil',1800, '2024-12-23 12:10:00');
+ INSERT :- insert into emp (name) values("Harsh");
+
+ UPDATE:-  update emp set emp_name="Harsh" where emp_id=1;
+
+ DELETE:-  delete from emp where emp_id=12;
+
+ getDATA(queries):-
+ select * from emp;
+ select id from emp;
+ select id, name from emp;
+ select * from emp where id = 1;
+ select * from emp where name = 'abc';
+ select * from emp where name = 'a';
+ select * from emp where name like 'a';
+ select * from emp where name like 'a%';
+
+
+
+mysql> select max(salary) from emp;
+mysql> select min(salary) from emp;
+mysql> select sum(salary) from emp;
+mysql> select count(salary) from emp;
+mysql> select count(*) from emp;
+mysql> select * from emp;
+mysql> select * from emp order by salary;
+mysql> select * from emp order by salary desc;
+mysql> select * from emp order by name;
+mysql> select * from emp order by name desc;
+mysql> select * from emp where id = 1;
+
+ LIKE QUERY:-
+ select * from emp where emp_name like '%H'; (%L mens Last se check karega)      
+ select * from emp where emp_name like 'H%';(%L mens first se check karega)  
+
+------------------------------------------------------------------------------------------------------------------
+
+#DCL : data control language
+ *Commit
+ *Rollback
+ *Savepoint
+
+
+# Primary Key
+mysql> create table emp(id int primary key, name varchar(50), salary int);
+
+
+
+# Foreign Key:-
+mysql> create table emp(id int primary key, name varchar(50), salary int, dept_id int, foreign key(dept_id) references dept(id) on update cascade on delete cascade);
+
+[on update cascade on delete cascade:- update mens primery key id update so chiled foreign key automatically updated, delete when primery key row deleted then foreign key row automatically delete.]
+
+================================================
+
+# foreign key without on update cascade & on delete cascade
+
+mysql> create table emp(id int primary key, name varchar(50), salary int);
+
+mysql> create table dept(id int primary key, dept_name varchar(50));
+
+mysql> alter table emp add dept_id int;
+
+mysql> alter table emp add foreign key(dept_id) references dept(id);
+
+mysql> drop table emp;
+
+mysql> drop table dept;
+
+=================================================
+
+# foreign key with on update cascade & on delete cascade
+
+mysql> create table emp(id int primary key, name varchar(50), salary int);
+
+mysql> create table dept(id int primary key, dept_name varchar(50));
+
+mysql> alter table emp add dept_id int;
+
+mysql> alter table emp add foreign key(dept_id) references dept(id) on update cascade on delete cascade;
+
+mysql> drop table emp;
+
+mysql> drop table dept;
+
+=================================================
+
+# foreign in single sql querry with on update cascade & on delete cascade
+dr
+mysql> create table dept(id int primary key, dept_name varchar(50));
+
+mysql> create table emp(id int primary key, name varchar(50), salary int, dept_id int, foreign key(dept_id) references dept(id) on update cascade on delete cascade);
+
+
+====================================================
+
+
+# limit
+
+mysql> select * from emp;
+
+mysql> select * from emp limit 0, 2;
+
+mysql> select * from emp limit limit 2, 2;
+
+=============================================
+
+# second highest with limit and without limit
+
+mysql> select * from emp order by salary;
+
+mysql> select * from emp order by salary desc;
+
+mysql> select * from emp order by salary desc limit 0, 1;
+
+mysql> select * from emp order by salary desc limit 1, 1;
+
+mysql> select * from emp order by salary desc limit 0, 2;
+
+mysql> select max(salary) from emp where salary < (select max(salary) from emp);
+
+Third Highest :- 
+mysql> select * from emp where salary = (select max(salary) from emp where salary < (select max(salary) from emp where salary <(select max(salary) from emp))); 
+
+=======================
+
+# aliases
+
+mysql> select emp.id as emp_id, name, salary from emp;
+
+mysql> select emp.id as emp_id, name as emp_name, salary as emp_salary from emp;
+
+mysql> select e.id as emp_id, name as emp_name, salary as emp_salary from emp as e;
+
+mysql> select e.id  emp_id, name emp_name, salary emp_salary from emp e;
+
+mysql> select e.id as emp_id, name as emp_name, salary as emp_salary, d.id as dept_id, name as dept_namee from emp as e, dept as d;
+
+************************************************************************
+# Marksheet Merit List
+mysql> select * from marksheet;
+mysql> select *, (physics + chemistry + maths) as total from marksheet;
+mysql> select *, (physics + chemistry + maths) as total from marksheet order by total desc;
+mysql> select *, (physics + chemistry + maths) as total from marksheet where physics >= 33 and chemistry >= 33 and maths >=33 order by total desc limit 0, 3;
+
+******************************************************
+# GroupBy
+mysql> select salary, count(*) from emp group by salary;
+
+******************************************************
+
+# joins
+
+mysql> select * from emp;
++----+-----------+--------+
+| id | name      | salary |
++----+-----------+--------+
+|  1 | abc       |   1000 |
+|  2 | xyz       |    100 |
+|  3 | pqr       |    700 |
+|  4 | vinjan    |   1700 |
+|  5 | suraj     |   1100 |
+|  6 | priya     |   2100 |
+|  7 | madhumita |   1200 |
++----+-----------+--------+
+
+mysql> select * from dep t;
++-----+-----------+
+| id  | dept_name |
++-----+-----------+
+|   1 | sales     |
+|   2 | marketing |
+|   3 | it        |
+| 100 | accounts  |
++-----+-----------+
+
+mysql> select * from emp inner join dept on emp.id = dept.id;
++----+------+--------+----+-----------+
+| id | name | salary | id | dept_name |
++----+------+--------+----+-----------+
+|  1 | abc  |   1000 |  1 | sales     |
+|  2 | xyz  |    100 |  2 | marketing |
+|  3 | pqr  |    700 |  3 | it        |
++----+------+--------+----+-----------+
+
+mysql> select * from emp left join dept on emp.id = dept.id;
++----+-----------+--------+------+-----------+
+| id | name      | salary | id   | dept_name |
++----+-----------+--------+------+-----------+  
+|  1 | abc       |   1000 |    1 | sales     |
+|  2 | xyz       |    100 |    2 | marketing |
+|  3 | pqr       |    700 |    3 | it        |
+|  4 | vinjan    |   1700 | NULL | NULL      |
+|  5 | suraj     |   1100 | NULL | NULL      |
+|  6 | priya     |   2100 | NULL | NULL      |
+|  7 | madhumita |   1200 | NULL | NULL      |
++----+-----------+--------+------+-----------+
+
+mysql> select * from emp right join dept on emp.id = dept.id;
++------+------+--------+-----+-----------+
+| id   | name | salary | id  | dept_name |
++------+------+--------+-----+-----------+
+|    1 | abc  |   1000 |   1 | sales     |
+|    2 | xyz  |    100 |   2 | marketing |
+|    3 | pqr  |    700 |   3 | it        |
+| NULL | NULL |   NULL | 100 | accounts  |
++------+------+--------+-----+-----------+
+
+
+//In SQL, the UNION operator combines the results of two or more SELECT queries into a single result set. It removes duplicate rows by default unless you use UNION ALL.
+//union :-create outer join with the help of union;
+mysql> select * from emp left join dept on emp.id = dept.id union select * from emp right join dept on emp.id = dept.id;
++------+-----------+--------+------+-----------+
+| id   | name      | salary | id   | dept_name |
++------+-----------+--------+------+-----------+
+|    1 | abc       |   1000 |    1 | sales     |
+|    2 | xyz       |    100 |    2 | marketing |
+|    3 | pqr       |    700 |    3 | it        |
+|    4 | vinjan    |   1700 | NULL | NULL      |
+|    5 | suraj     |   1100 | NULL | NULL      |
+|    6 | priya     |   2100 | NULL | NULL      |
+|    7 | madhumita |   1200 | NULL | NULL      |
+| NULL | NULL      |   NULL |  100 | accounts  |
++------+-----------+--------+------+-----------+
+
+
+
+mysql> select * from emp left join dept on emp.id = dept.id where dept.id is null union select * from emp right join dept on emp.id = dept.id where emp.id is null;
++------+-----------+--------+------+-----------+
+| id   | name      | salary | id   | dept_name |
++------+-----------+--------+------+-----------+
+|    4 | vinjan    |   1700 | NULL | NULL      |
+|    5 | suraj     |   1100 | NULL | NULL      |
+|    6 | priya     |   2100 | NULL | NULL      |
+|    7 | madhumita |   1200 | NULL | NULL      |
+| NULL | NULL      |   NULL |  100 | accounts  |
++------+-----------+--------+------+-----------+
+
+===============================================================================
+
+# testing
+
+mysql> select * from emp left join dept on emp.id = dept.id;
++----+-----------+--------+------+-----------+
+| id | name      | salary | id   | dept_name |
++----+-----------+--------+------+-----------+
+|  1 | abc       |   1000 |    1 | sales     |
+|  2 | xyz       |    100 |    2 | marketing |
+|  3 | pqr       |    700 |    3 | it        |
+|  4 | vinjan    |   1700 | NULL | NULL      |
+|  5 | suraj     |   1100 | NULL | NULL      |
+|  6 | priya     |   2100 | NULL | NULL      |
+|  7 | madhumita |   1200 | NULL | NULL      |
++----+-----------+--------+------+-----------+
+
+mysql> select * from emp left join dept on emp.id = dept.id where dept.id is null;
++----+-----------+--------+------+-----------+
+| id | name      | salary | id   | dept_name |
++----+-----------+--------+------+-----------+
+|  4 | vinjan    |   1700 | NULL | NULL      |
+|  5 | suraj     |   1100 | NULL | NULL      |
+|  6 | priya     |   2100 | NULL | NULL      |
+|  7 | madhumita |   1200 | NULL | NULL      |
++----+-----------+--------+------+-----------+
+
+mysql> select * from emp right join dept on emp.id = dept.id;
++------+------+--------+-----+-----------+
+| id   | name | salary | id  | dept_name |
++------+------+--------+-----+-----------+
+|    1 | abc  |   1000 |   1 | sales     |
+|    2 | xyz  |    100 |   2 | marketing |
+|    3 | pqr  |    700 |   3 | it        |
+| NULL | NULL |   NULL | 100 | accounts  |
++------+------+--------+-----+-----------+
+
+mysql> select * from emp right join dept on emp.id = dept.id where emp.id is null;
++------+------+--------+-----+-----------+
+| id   | name | salary | id  | dept_name |
++------+------+--------+-----+-----------+
+| NULL | NULL |   NULL | 100 | accounts  |
++------+------+--------+-----+-----------+
+
+mysql> select * from emp left join dept on emp.id = dept.id where dept.id is null union select * from emp right join dept on emp.id = dept.id where emp.id is null;
++------+-----------+--------+------+-----------+
+| id   | name      | salary | id   | dept_name |
++------+-----------+--------+------+-----------+
+|    4 | vinjan    |   1700 | NULL | NULL      |
+|    5 | suraj     |   1100 | NULL | NULL      |
+|    6 | priya     |   2100 | NULL | NULL      |
+|    7 | madhumita |   1200 | NULL | NULL      |
+| NULL | NULL      |   NULL |  100 | accounts  |
++------+-----------+--------+------+-----------+
+
+================================================================
+MARKSHEET QUERYS :  -
+=================================================================
+mysql> select * from marksheet;
++----+---------+-----------+---------+-----------+-------+
+| id | roll_no | name      | physics | chemistry | maths |
++----+---------+-----------+---------+-----------+-------+
+|  1 |     101 | vinjal    |      76 |        78 |    98 |
+|  2 |     102 | suraj     |      78 |        88 |    99 |
+|  3 |     103 | priya     |      67 |        66 |    89 |
+|  4 |     104 | madhumita |      78 |        67 |    89 |
+|  5 |     105 | abc       |      11 |        22 |    33 |
+|  6 |     106 | xyz       |      23 |        43 |    52 |
++----+---------+-----------+---------+-----------+-------+
+
+mysql> select *, (physics + chemistry + maths) as total from marksheet;
++----+---------+-----------+---------+-----------+-------+-------+
+| id | roll_no | name      | physics | chemistry | maths | total |
++----+---------+-----------+---------+-----------+-------+-------+
+|  1 |     101 | vinjal    |      76 |        78 |    98 |   252 |
+|  2 |     102 | suraj     |      78 |        88 |    99 |   265 |
+|  3 |     103 | priya     |      67 |        66 |    89 |   222 |
+|  4 |     104 | madhumita |      78 |        67 |    89 |   234 |
+|  5 |     105 | abc       |      11 |        22 |    33 |    66 |
+|  6 |     106 | xyz       |      23 |        43 |    52 |   118 |
++----+---------+-----------+---------+-----------+-------+-------+
+
+mysql> select *, (physics + chemistry + maths) as total from marksheet order by total;
++----+---------+-----------+---------+-----------+-------+-------+
+| id | roll_no | name      | physics | chemistry | maths | total |
++----+---------+-----------+---------+-----------+-------+-------+
+|  5 |     105 | abc       |      11 |        22 |    33 |    66 |
+|  6 |     106 | xyz       |      23 |        43 |    52 |   118 |
+|  3 |     103 | priya     |      67 |        66 |    89 |   222 |
+|  4 |     104 | madhumita |      78 |        67 |    89 |   234 |
+|  1 |     101 | vinjal    |      76 |        78 |    98 |   252 |
+|  2 |     102 | suraj     |      78 |        88 |    99 |   265 |
++----+---------+-----------+---------+-----------+-------+-------+
+
+mysql> select *, (physics + chemistry + maths) as total from marksheet order by total desc;
++----+---------+-----------+---------+-----------+-------+-------+
+| id | roll_no | name      | physics | chemistry | maths | total |
++----+---------+-----------+---------+-----------+-------+-------+
+|  2 |     102 | suraj     |      78 |        88 |    99 |   265 |
+|  1 |     101 | vinjal    |      76 |        78 |    98 |   252 |
+|  4 |     104 | madhumita |      78 |        67 |    89 |   234 |
+|  3 |     103 | priya     |      67 |        66 |    89 |   222 |
+|  6 |     106 | xyz       |      23 |        43 |    52 |   118 |
+|  5 |     105 | abc       |      11 |        22 |    33 |    66 |
++----+---------+-----------+---------+-----------+-------+-------+
+
+mysql> select *, (physics + chemistry + maths) as total from marksheet order by total desc limit 0, 3;
++----+---------+-----------+---------+-----------+-------+-------+
+| id | roll_no | name      | physics | chemistry | maths | total |
++----+---------+-----------+---------+-----------+-------+-------+
+|  2 |     102 | suraj     |      78 |        88 |    99 |   265 |
+|  1 |     101 | vinjal    |      76 |        78 |    98 |   252 |
+|  4 |     104 | madhumita |      78 |        67 |    89 |   234 |
++----+---------+-----------+---------+-----------+-------+-------+
+
+mysql> select *, (physics + chemistry + maths) as total from marksheet where physics >= 33 and chemistry >= 33 and maths >=33 order by total desc limit 0, 3;
++----+---------+-----------+---------+-----------+-------+-------+
+| id | roll_no | name      | physics | chemistry | maths | total |
++----+---------+-----------+---------+-----------+-------+-------+
+|  2 |     102 | suraj     |      78 |        88 |    99 |   265 |
+|  1 |     101 | vinjal    |      76 |        78 |    98 |   252 |
+|  4 |     104 | madhumita |      78 |        67 |    89 |   234 |
++----+---------+-----------+---------+-----------+-------+-------+
+
+mysql> select *, (physics + chemistry + maths) as total,(physics + chemistry + maths)/3 as persantage from marksheet where physics >= 33 and chemistry >= 33 and maths >=33 order by total desc limit 0, 3;
+
+=============================================================================================
+last login:-one row get
+=============================================================================================
+
+last_login :-1 ROW
+select * from emp where last_login=(select max(last_login) from emp);
+select * from emp where last_login=(select max(last_login) from emp where loginId="harshpatidar@gmail.com");
+
+select * from emp where salary=(select max(salary) from emp where salary< (select max(salary)from emp)); second highest salary row.
+
+select * from emp where salary=(select max(salary) from emp where salary< (select max(salary) from emp where salary < (select max(salary) from emp))); thired higheht 
+
+select * from emp order by last_login desc  limit 0,1; ->first highest
+
+
+select * from emp order by last_login desc  limit 1,1; ->secound highest
+=============================================================================
+GROUP BY use aggregate function.. /BETWEEN /IN/ORDER BY :DESC manually duing
+==============================================================================
+
+CHECK krna he: GROUP BY
+
+mysql>SELECT user_id, MAX(login_time) AS last_login
+FROM user_logins
+GROUP BY user_id;
+
+MySQL> select * from emp where salary Between 10000 And 20000;
+
+
+MySQL> select * from emp where salary IN (10000 , 20000);
+
+mysql> select salary, count(*) from emp group by salary;
+mysql> select name, count(*) from emp group by name;
+==========================================================
+INDEX query :-
+===================================================
+DESCRIPTION:-
+
+mysql> CREATE INDEX searchIndex on sqlcrud(name,sallary);
+
+
+==============================================================================================================
+TRIGGER CREATE by ME..:---.
+PL/SQL : procedural language 
+
+TRIGERSS: 1 DDL TRIGGER ,2 DML TRIGGER,3 LOGON TRIGGER. trigger is like stored ...Rollback is posible
+
+
+CREATION types of TRIGGER :
+1. Data Validation  /2. Data Transformation /3. Default Value Assignment /4. Data Duplication Check /5. Logging Actions /6. Cross-Table Validation/
+7. Conditional Insertions /8. Cascading Inserts /9. Access Control /10. Prevent Unauthorized Actions
+ 
+============================================================================================================================================
+BEFORE_AFTER UPDATE ka DATA :-  UPDATE and DELETE not matter kya likh re OLD.id OR NEW.id consider same but ID of INSERT data  consider new so NEW.ID
+backuptabletrigg:-id AUTO_INCREMENT
+auditstrigg   :-id AUTO_INCREMENT
+
+
+before_update :-  1 trigger OLD  -> puarana data 
+
+DELIMITER $$
+
+CREATE TRIGGER before_update
+BEFORE UPDATE
+ON emptabletrigg
+FOR EACH ROW
+BEGIN
+    -- Check if the record already exists in the backup table
+    IF EXISTS (SELECT 1 FROM backuptabletrigg WHERE login = OLD.login) THEN
+        -- If exists, update the existing record
+
+        UPDATE backuptabletrigg
+        SET 
+            transactionDetails = "UPDATE",
+            name = OLD.name,
+            salary = OLD.salary,
+            experience = OLD.experience,
+            last_modified_date = NOW()
+        WHERE login = OLD.login;
+
+    ELSE
+        -- If not exists, insert the new record
+        INSERT INTO backuptabletrigg (
+            login, transactionDetails, name, salary, experience, last_modified_date
+        )
+        VALUES (
+            OLD.login, "UPDATE", OLD.name, OLD.salary,  OLD.experience, NOW()
+        );
+    END IF;
+END$$
+
+DELIMITER ;
+
+
+
+
+after_update :-  2 trigger   NEW  -> new data mens bhle 4 columns me ak hi column ko update kiya ho bute apdate ke bad vo data NEW me gina jayega.
+CREATE TRIGGER after_update
+AFTER
+UPDATE
+ON emptabletrigg
+FOR EACH ROW
+
+ insert into auditstrigg (tablename,transactioname,transactiondate,modified_by) values("emptabletrigg","UPDATE",NOW(),"root(USER)");
+
+
+
+before_deleted :--
+
+DELIMITER $$
+
+CREATE TRIGGER before_delete
+BEFORE DELETE
+ON emptabletrigg
+FOR EACH ROW
+BEGIN
+    -- Check if the record already exists in the backup table
+    IF EXISTS (SELECT 1 FROM backuptabletrigg WHERE login = OLD.login) THEN
+        -- If exists, update the existing record
+        UPDATE backuptabletrigg
+        SET 
+            transactionDetails = "DELETE",
+            name = OLD.name,
+            salary = OLD.salary,
+            experience = OLD.experience,
+            last_modified_date = NOW()
+        WHERE login = OLD.login;
+
+    ELSE
+        -- If not exists, insert the new record
+        INSERT INTO backuptabletrigg (
+            login, transactionDetails, name, salary, experience, last_modified_date
+        )
+        VALUES (
+            OLD.login, "DELETE", OLD.name, OLD.salary,  OLD.experience, NOW()
+        );
+    END IF;
+END$$
+
+DELIMITER ;
+
+
+
+
+after_detele :-  2
+
+DELIMITER $$
+
+CREATE TRIGGER after_delete
+AFTER DELETE
+ON emptabletrigg
+FOR EACH ROW
+BEGIN
+   
+    INSERT INTO auditstrigg (tablename, transactioname, transactiondate, modified_by)
+    VALUES ("emptabletrigg", "DELETE", NOW(), "root(USER)");
+
+   
+   
+END$$
+
+DELIMITER ;
+
+
+
+before_insert :-1
+
+DELIMITER $$
+
+CREATE TRIGGER before_inserted
+BEFORE INSERT ON emptabletrigg
+FOR EACH ROW
+BEGIN
+    DECLARE age INT;
+
+
+    -- Calculate age from the date of birth
+    SET age = YEAR(CURDATE()) - YEAR(NEW.dob);
+
+
+    -- Check if the Gmail ID already exists
+    IF EXISTS (SELECT 1 FROM emptabletrigg WHERE login = NEW.login) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Not Eligible: Gmail ID already exists.';
+    END IF;
+
+    -- Check age condition
+    IF age > 25 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Not Eligible: Age is greater than 25.';
+
+    -- Check experience condition
+    ELSEIF NEW. experience < 3 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Not Eligible: experience  Must have greater then 3 year.';
+
+    ELSE
+        -- Log success message into a table
+        INSERT INTO insertdetailtrigg ( EMPLOYEE_LOGIN,register_date)
+        VALUES (NEW.login ,NOW());
+    END IF;
+END$$
+
+DELIMITER ;
+
+
+after_insert :-1
+CREATE TRIGGER after_insert
+AFTER
+INSERT
+ON emptabletrigg
+FOR EACH ROW
+
+ insert into auditstrigg (tablename,transactioname,transactiondate,modified_by) values("emptabletrigg","INSERT",NOW(),"root(USER)");
+
+
+----------------------------------------------------------------------
+Also us can write TRIGGER :- 
+AFTER UPDATE OR DELETE 
+ON emp 
+FOR EACH ROW...
+----------------------------------------------------------------------
+
+================================================================================================================================
+INSERT TRIGGER PERFORM OPERTAION that user not inserted if user age is Gretter then 25 and experience is less at lest 3 yer + OR  salary ..
+=================================================================================================================================
+//SIGNAL SQLSTATE '45000' :- 
+SIGNAL:      This keyword is used to explicitly raise an error in MySQL. 
+              It stops the current transaction or query and returns an error message to the client.
+SQLSTATE:     Represents a five-character string code that categorizes the type of error.
+              '45000' is a general code for "unhandled user-defined exception."
+              It doesn't correspond to a specific system error, so you can use it for your custom logic.
+'45000':-     is a user-defined error code. It doesn't overlap with MySQL's built-in SQLSTATE codes, making it ideal for custom error handling.
+
+
+DELIMITER $$
+
+CREATE TRIGGER before_inserted
+BEFORE INSERT ON emptabletrigg
+FOR EACH ROW
+BEGIN
+    DECLARE age INT;
+
+
+    -- Calculate age from the date of birth
+    SET age = YEAR(CURDATE()) - YEAR(NEW.dob);
+
+
+    -- Check if the Gmail ID already exists
+    IF EXISTS (SELECT 1 FROM emptabletrigg WHERE login = NEW.login) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Not Eligible: Gmail ID already exists.';
+    END IF;
+
+    -- Check age condition
+    IF age > 25 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Not Eligible: Age is greater than 25.';
+
+    -- Check salary condition
+    ELSEIF NEW.salary < 25000 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Not Eligible: Salary  Must have greater than 25,000.';
+
+    ELSE
+        -- Log success message into a table
+        INSERT INTO insertdetailtrigg (id, EMPLOYEE_LOGIN,register_date)
+        VALUES (NEW.id,NEW.login ,NOW());
+    END IF;
+END$$
+
+DELIMITER ;
+
+
+==============================================================================================================================
+THIS TRIGGER CREAT for OTHER databases Note the MYSQL database ONLY KNOWLGE prepose TO See What the difference between MySQL and other database. 
+===============================================================================================================================
+CREATE TRIGGER before_inserted
+BEFORE 
+INSERT
+ON emptabletrigg
+FOR EACH ROW 
+AS 
+declare @emp_dob varchar(30);
+declare @age INT;
+declare @emp_experience INT;
+
+select @emp_dob=i.date from insert inserted i;
+select @emp_experience =i.experience from inserted i;
+
+SET @age=year(NOW())-year(@emp_dob);
+IF age > 25
+BEGIN 
+select 'Note Eligible :Age is Gretter then 25 .'
+Rollback
+END
+
+ELSEIF @emp_experience < 3
+BEGIN
+SELECT 'NOTE Eligible: Experience is less then 3 year '
+Rollback
+END
+
+ELSE
+BEGIN
+SELECT 'Employee datils add successfully.. '
+ENd
+==============================================================================================================================
+Q :- ASK for chatgpt how many types are operation which i can perform using BEFORE INSERTR trigger on bases of live senerios ?
+
+SEAM TABLE CHANGES USING TRIGGER :------>
+==============================================================================================================================
+1. Data Validation
+
+CREATE TRIGGER validate_salary
+BEFORE 
+INSERT 
+ON employees
+FOR EACH ROW
+BEGIN
+    IF NEW.salary < 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Salary cannot be negative';
+    END IF;
+END;
+
+2. Data Transformation
+
+CREATE TRIGGER transform_data
+BEFORE INSERT ON products
+FOR EACH ROW
+BEGIN
+    SET NEW.name = UPPER(NEW.name);
+    SET NEW.price = ROUND(NEW.price, 2);
+END;
+
+3. Default Value Assignment
+
+CREATE TRIGGER assign_defaults
+BEFORE INSERT ON orders
+FOR EACH ROW
+BEGIN
+    IF NEW.order_date IS NULL THEN
+        SET NEW.order_date = CURRENT_DATE;
+    END IF;
+END;
+
+===============================================================================================================================================
+
+ANTHOER way to create trigger :-ID INCREMENT...
+=============================================================================================================================================
+
+DELIMITER $$
+
+CREATE TRIGGER before_delete
+BEFORE DELETE
+ON maintabletrigg
+FOR EACH ROW
+BEGIN
+    -- Calculate the new id for the backup table
+    DECLARE new_id INT;
+
+    -- Get the next id value from the backup table
+    SELECT MAX(id) + 1 INTO new_id FROM backuptabletrigg;
+
+    -- Insert the old row values into the backup table
+    INSERT INTO backuptabletrigg (id, name, sallary, date) 
+    VALUES (new_id, OLD.name, OLD.sallary, OLD.date);
+END$$
+
+DELIMITER ;
+
+
+
+
+==================================================================================
+
+
+1---INSERT------Statment......JDBC...........
+package in.co.rays.stmt;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+public class TestInsert {
+
+	public static void main(String[] args) throws Exception {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advance_java", "root", "root");
+
+		Statement stmt = conn.createStatement();
+
+		int i = stmt.executeUpdate("insert into marksheet values(7, 107, 'aryant', 89, 22, 34)");
+
+		System.out.println("data inserted => " + i);
+	}
+}
+
+------------------------------------------------------------------
+
+package in.co.rays.stmt;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+public class TestDelete {
+
+	public static void main(String[] args) throws Exception {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advance_java", "root", "root");
+
+		Statement stmt = conn.createStatement();
+
+		int i = stmt.executeUpdate("delete from marksheet where id = 10");
+
+		System.out.println("data deleted => " + i);
+
+	}
+
+}
+-----------------------------------------------------------------
+
+package in.co.rays.stmt;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class TestRead {
+
+	public static void main(String[] args) throws Exception {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advance_java", "root", "root");
+
+		Statement stmt = conn.createStatement();
+
+		ResultSet rs = stmt.executeQuery("select * from marksheet");
+
+		while (rs.next()) {
+
+			System.out.print(rs.getInt(1));
+			System.out.print("\t" + rs.getInt(2));
+			System.out.print("\t" + rs.getString(3));
+			System.out.print("\t" + rs.getInt(4));
+			System.out.print("\t" + rs.getInt(5));
+			System.out.println("\t" + rs.getInt(6));
+
+		}
+	}
+}
+------------------------------------------------
+
+package in.co.rays.stmt;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+public class TestUpdate {
+
+	public static void main(String[] args) throws Exception {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advance_java", "root", "root");
+
+		Statement stmt = conn.createStatement();
+
+		int i = stmt.executeUpdate("update marksheet set name = 'kkk' where id = 10");
+
+		System.out.println("data updated => " + i);
+
+	}
+
+}
+---------------------------------------
+pstmt..--------------------------------------------
+package in.co.rays.pstmt;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+public class TestInsert {
+
+	public static void main(String[] args) throws Exception {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advance_java", "root", "root");
+
+		PreparedStatement pstmt = conn.prepareStatement("insert into marksheet values(8, 108, 'samay', 19, 22, 34)");
+
+		int i = pstmt.executeUpdate();
+
+		System.out.println("data inserted => " + i);
+
+	}
+}
+----------------------------------------------------------------
+
+
+
+package in.co.rays.pstmt;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+public class TestDelete {
+
+	public static void main(String[] args) throws Exception {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advance_java", "root", "root");
+
+		PreparedStatement pstmt = conn.prepareStatement("delete from marksheet where id = 10");
+
+		int i = pstmt.executeUpdate();
+
+		System.out.println("data deleted => " + i);
+
+	}
+
+}
+
+--------------------------------------------------------------
+
+
+
+
+package in.co.rays.pstmt;use
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class TestRead {
+
+	public static void main(String[] args) throws Exception {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advance_java", "root", "root");
+
+		PreparedStatement pstmt = conn.prepareStatement("select * from marksheet");
+
+		ResultSet rs = pstmt.executeQuery();
+
+		while (rs.next()) {
+
+			System.out.print(rs.getInt(1));
+			System.out.print("\t" + rs.getInt(2));
+			System.out.print("\t" + rs.getString(3));
+			System.out.print("\t" + rs.getInt(4));
+			System.out.print("\t" + rs.getInt(5));
+			System.out.println("\t" + rs.getInt(6));
+
+		}
+
+	}
+
+}
+---------------------------------------------------------------------
+
+
+
+package in.co.rays.pstmt;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+public class TestUpdate {
+
+	public static void main(String[] args) throws Exception {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advance_java", "root", "root");
+
+		PreparedStatement pstmt = conn.prepareStatement("update marksheet set name = 'madhu' where id = 4");
+
+		int i = pstmt.executeUpdate();
+
+		System.out.println("data updated => " + i);
+
+	}
+
+}
+---------------------------------------------------\
+callablestmt
+
+package in.co.rays.callable;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+
+public class TestProcedureIn {
+
+	public static void main(String[] args) throws Exception {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advance_java", "root", "root");
+
+		CallableStatement callStmt = conn.prepareCall("{CALL empIn(?)}");
+
+		callStmt.setInt(1, 10);
+
+		callStmt.execute();
+
+		ResultSet rs = callStmt.getResultSet();
+
+		while (rs.next()) {
+
+			System.out.println(rs.getInt(1));
+			System.out.println(rs.getString(2));
+			System.out.println(rs.getInt(3));
+
+		}
+
+	}
+
+}
+----------------------------------------------------------------
+
+package in.co.rays.callable;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;-
+import java.sql.DriverManager;
+import java.sql.Types;
+
+public class TestProcedureInOut {
+
+	public static void main(String[] args) throws Exception {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advance_java", "root", "root");
+
+		CallableStatement callStmt = conn.prepareCall("{CALL empInOut(?)}");
+
+		callStmt.setInt(1, 10);
+
+		callStmt.registerOutParameter(1, Types.INTEGER);
+
+		callStmt.execute();
+
+		System.out.println(callStmt.getInt(1));
+
+	}
+
+}
+--------------------------------------------------------
+
+
+package in.co.rays.callable;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Types;
+
+public class TestProcedureOut {
+
+	public static void main(String[] args) throws Exception {
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advance_java", "root", "root");
+
+			CallableStatement callStmt = conn.prepareCall("{CALL empOut(?)}");
+
+			callStmt.registerOutParameter(1, Types.INTEGER);
+
+			callStmt.execute();
+
+			int resultValue = callStmt.getInt(1);
+
+			System.out.println("Result from empOut stored procedure: " + resultValue);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+	}
+
+}
+----------------------------------------------------
+
+
+
+package in.co.rays.callable;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Types;
+
+public class TestStoreFunction {
+
+	public static void main(String[] args) throws Exception {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/advance_java", "root", "root");
+
+		CallableStatement callStmt = conn.prepareCall("{? = CALL square(?)}");
+		callStmt.setInt(2, 10);
+		callStmt.registerOutParameter(1, Types.INTEGER);
+		callStmt.execute();
+
+		System.out.println(" Square " + callStmt.getInt(1));
+	}
+
+}
+------------------------------------------------------------
+stored procedure  Cllearty....EXTRA
+-----------------------------------------------------------
+Cllearty:-SELECT return krta ResultSet ka object : do select na bheje
+                                  Because ap ResultSet ko row ke
+                                  liye set karoge to message time exception de dega sayd..
+
+ha agr MySQL pr call kr check krna to kr skte ho but jdbc ke hisab
+            se glt hoga..
+                                       
+
+     IF value>0 THEN
+     select * from storedprocedure where id=value; 
+     ELSE
+   //  select 'row note found' As message;
+     SET value = -1;
+     End IF;
+
+
+==========================================================
+# Stored Procedure (in)
+==========================================================
+
+mysql> delimiter &&
+mysql> create procedure empIn(in c int)
+     begin
+     select * from emp where id = c;
+     end &&
+    
+mysql> set @input = 11;
+
+mysql> call empIn(@input);
+
+==========================================================
+# Stored Procedure (out)
+==========================================================
+
+mysql> delimiter &&
+mysql> create procedure empOut(out c int)
+    -> begin
+    -> select salary into c from emp where id = 10;
+    ->  /* select c*/ ager  select @output; use kiye bina output chahiye to esa karo ye outo matically ResultSet me de dega; 
+    -> end &&
+    
+mysql> call empOut(@output);
+
+mysql> select @output;    
+  
+==========================================================  
+# Stored Procedure (inout)
+==========================================================
+
+mysql> delimiter &&
+mysql> create procedure empInOut(inout c int)
+    -> begin
+    -> select salary into c from emp where id = c;
+    -> end &&
+    
+mysql> set @inout = 1;                //@anynamegiven
+
+mysql> call empInOut(@inout);
+
+mysql> select @inout;
+
+============================================================
+#stored procedure (OUT)
+===========================================================
+
+DELIMITER $$
+
+CREATE PROCEDURE empOut(OUT c INT)
+BEGIN
+    SELECT salary INTO c FROM emp WHERE id = 4;
+END $$
+
+DELIMITER ;
+    
+========================================================== 
+# Stored Function
+==========================================================
+1.
+mysql> delimiter &&
+mysql> create function square(num int)
+    -> returns int
+    -> deterministic
+    -> begin
+    -> declare result int;
+    -> set result = num * num;
+    -> return result;
+    -> end &&
+    
+mysql> select square(10);
+
+
+
+==========================================================
+stored procedure transaction  ......EXTRA   (SHIVANSHI)
+==========================================================
+
+DELIMITER &&
+mysql> create procedure transactionhandaling()
+    ->      begin
+    ->      declare continue handler for sqlwarning
+    ->      begin
+    ->      select 'sqlwarningerror';
+    ->      end;
+    ->      declare exit handler for sqlexception
+    ->      begin
+    ->      select 'sqlexceptionerror';
+    ->      rollback;
+    ->      end;
+    ->      start transaction;
+    ->      begin
+    ->      insert into storedprocedure values(5,"yash",5000);
+    ->      insert into storedprocedure values(5,"yash",5000);
+    ->      end;
+    ->      commit;
+    ->      SET @status = 'Data inserted successfully';
+    ->     SELECT @status;
+    ->      end $$
+
+DELIMITER ;
+
+================================================================
+TRANSACTION :-stored procedure for sort transaction with parameter.......EXTRA (VEDIO)
+=================================================================
+DELIMITER &&
+
+create procedure tranwithparam(IN userName varchar(255),IN userid int(10),out status varchar(200))
+begin
+update storedprocedure set storedprocedure.userName=username where User_id=userid;
+select * from storedprocedure;
+commit;
+set status ="user update successfully";
+select status;
+END &&
+
+DELIMITER ;
+
+===============================================================================================================
+# stored function :-create one additional column with the help of return statement use inside stored procedure..(VEDIO)
+================================================================================================================
+2.
+mysql> delimiter $$
+mysql>create function emloy_Post(salary int)
+     ->return varchar(50)
+     ->deterministic
+     -> BEGIN
+     ->declare emp_position varchar(20);   //variable declare
+     ->if salary > 35000 then
+     -> set emp_position="senier devloper";
+     ->eleseIf(salary <=35) then
+     ->set emp_position="developer";
+     ->elseIf(slary <30) then
+     ->set emp_position="junior devloper";
+     ->END IF;
+     ->return (emp_position);
+     ->END $$
+     
+     ->delimiter;
+
+====================================================================
+Extra:-Stored Function ... EXTRA  (VEDIO)
+===================================================================
+ create function TexCutting(sallary int)
+    -> RETURNS VARCHAR(50)
+    -> DETERMINISTIC
+    ->
+    -> BEGIN
+    -> DECLARE EMPLOY_TEX varchar(50);
+    -> IF sallary > 10000 THEN
+    -> SET EMPLOY_TEX='10%';
+    -> ELSEIF(sallary <=10000) AND sallary >=5000 THEN
+    -> SET EMPLOY_TEX='5%';
+    -> ELSEIF sallary<5000 THEN
+    -> SET EMPLOY_TEX='2%';
+    -> END IF;
+    -> RETURN(EMPLOY_TEX);
+    -> END $$
+
+=================================================================
+STORED FUNCION USE inside STORED PROCEDURE...(VEDIO)
+================================================================ 
+mysql>DELIMITER &&
+mysql> create procedure getstoredprocedurelistWithFunction`()
+
+begin
+select id,name,sallary,TexCutting(sallary) from storedprocedure;
+End &&
+mysql>DELIMITER ;
+
+=======================================================================
+increment id insert time (CAHTGPT)
+=======================================================================
+INSERT INTO maintable (id, salary)
+VALUES ((SELECT MAX(id) + 1 FROM maintable), 5000);
+
+=======================================================================
+EXTRA CREATE TRIGGER WITH THE HELP OF PROCEDURE :--..extra (CAHTGPT)
+========================================================================
+CREATE PROCEDURE BackupToTable(new_id INT, new_name VARCHAR(50), new_salary INT, new_date DATETIME)
+BEGIN
+    INSERT INTO backuptabletrigg (id, name, salary, date)
+    VALUES (new_id, new_name, new_salary, new_date);
+END;
+
+CREATE TRIGGER before_insert
+BEFORE INSERT
+ON maintabletrigg
+FOR EACH ROW
+BEGIN
+    CALL BackupToTable(NEW.id, NEW.name, NEW.salary + 100, NEW.date);
+END;
+
+
+
+========================================================================
+AUTO increment id in table :- create time
+
+=========================================================================
+ CREATE TABLE AUDITS (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     tablename VARCHAR(30),
+    ->     transactioname VARCHAR(30),
+    ->     transactiondate TIMESTAMP
+    -> );
+
+===========================================================
+ALTER : use alter after creating table and midified column to (AUTO increment)
+================================================================
+ALTER TABLE table_name
+MODIFY COLUMN column_name INT AUTO_INCREMENT;
+
+========================================
+clear Table Data :-
+========================================
+TRUNCATE TABLE table_name;
+
+===================================
+Change table name OR COlUMN NAME:-
+=================================
+TBALE :
+RENAME TABLE old_table_name TO new_table_name;
+                 OR
+ALTER TABLE old_table_name RENAME TO new_table_name;
+
+COLUMN :      
+ALTER TABLE table_name
+RENAME COLUMN old_column_name TO new_column_name;
+   OR
+alter table backuptabletrigg change sallary salary int;
+
+===============================================
+DESCRIBE TABLE :
+==============================================
+ DESCRIBE emptabletrigg;
+

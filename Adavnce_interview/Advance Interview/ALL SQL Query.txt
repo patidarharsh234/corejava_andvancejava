@@ -1,0 +1,285 @@
+
+*************KAPIL DUDHE*****************
+#DataBase show:-show databases;
+
+
+#DDL : data definition language [ "CREATE"  DATABASE,TABLE & "ALTER" TABLE  || "DROP" TABLE]
+
+#DataBase Create:-
+mysql> create database advance_java;
+
+# Table Create:-
+mysql> create table emp(id int, name varchar(50), salary int ,inserDate timestamp);
+
+# Add Column in already create table:- 
+ mysql>alter table emp add salary int;
+
+#(alter) Drop Column in already create table:- 
+ mysql>alter table emp drop salary int;
+
+# Drop Table
+mysql> drop table emp;
+# Drop Database
+mysql>drop database advance_java;
+
+#PRIMERY KEY / FOREIGN KEY  with ALTER :after table creation
+#primery Key
+mysql> alter table parent add primary key(id);
+#foreign Key
+mysql> alter table chiled add foreign Key(parent_id)references parent (id);
+
+
+    Extra :
+#DataBase modified:-
+mysql> use advance_java;
+# Table Show:-
+mysql> show tables;
+
+
+#TAble Name Change:-
+mysql>RENAME TABLE old_table_name TO new_table_name;
+#colum Name Change:-
+alter table parent change column oldColumnName  NewColumnName dataDype;
+
+
+ 
+
+
+
+  #DML : data manipulation language   [TABLE DATA MODIFICATION ]
+
+# INSERT :- insert into emp (emp_id,emp_name,emp_salary)values(12,'kapil',1800, '2024-12-23 12:10:00');&&insert into emp values(1, 'abc', 1000);
+# INSERT only one column:-  mysql> insert into emp (name) values("Harsh");
+
+# UPDATE:-  update emp set emp_name="Harsh" where emp_id=1;
+
+# DELETE:-  delete from emp where emp_id=12;
+
+# getDATA(queries):- select * from emp;
+
+# LIKE QUERY:- select * from emp where emp_name like '%H'; (%L mens Last se check karega)      ||select * from emp where emp_name like 'H%';(%L mens first se check karega)  
+
+
+
+# Primary Key
+mysql> create table emp(id int primary key, name varchar(50), salary int);
+
+
+
+# Foreign Key:-
+mysql> create table emp(id int primary key, name varchar(50), salary int, dept_id int, foreign key(dept_id) references dept(id) on update cascade on delete cascade);
+
+[on update cascade on delete cascade:- update mens primery key id update so chiled foreign key automatically updated, delete when primery key row deleted then foreign key row automatically delete.]
+
+
+#DCL : data control language
+Commit
+Rollback
+Savepoint
+******************************************************
+
+# Limit
+mysql> select * from emp limit 0, 2;
+
+
+# Second Highest with Limit
+mysql> select * from emp order by salary desc limit 1, 1;
+
+# Second Lowest with Limit
+select * from emp order by emp_salary limit 1,1;
+
+ ******************************************************                                
+#Second Highest withOut Limit
+mysql> select max(salary) from emp where salary < (select max(salary) from emp);
+************************************************************************
+# Alises
+mysql> select emp.id as emp_id, name, salary from emp;
+
+mysql> select emp.id as emp_id, name as emp_name, salary as emp_salary from emp;
+
+mysql> select e.id as emp_id, name as emp_name, salary as emp_salary from emp as e;
+
+mysql> select e.id  emp_id, name emp_name, salary emp_salary from emp e;
+
+mysql> select e.id as emp_id, name as emp_name, salary as emp_salary, d.id as dept_id, name as dept_namee from emp as e, dept as d;
+
+******************************************************
+# Like
+mysql> select * from emp where name = 'k%';
+
+******************************************************
+
+# Minimum/Maximum Salary
+mysql> select min(salary)from emp;
+mysql> select max(salary)from emp;
+******************************************************
+
+# show columns
+mysql> show columns from emp;
+
+************************************************************************
+# Marksheet Merit List
+mysql> select * from marksheet;
+mysql> select *, (physics + chemistry + maths) as total from marksheet;
+mysql> select *, (physics + chemistry + maths) as total from marksheet order by total desc;
+mysql> select *, (physics + chemistry + maths) as total from marksheet where physics >= 33 and chemistry >= 33 and maths >=33 order by total desc limit 0, 3;
+
+******************************************************
+
+# GroupBy
+mysql> select salary, count(*) from emp group by salary;
+
+******************************************************
+##CHANGE Column name
+alter table marksheet change name student_name varchar(50);
+============================================
+##CHANGE TAblename
+RENAME TABLE emp TO employees;
+===================================================
+##COLUMN DELETE 
+ALTER TABLE emp DROP COLUMN emp_salary;
+==================================================
+##LAST LOGIN 
+ SELECT gmail_id, MAX(last_login) AS last_time
+FROM user
+GROUP BY gmail_id;
+============================================================
+*********************TRIGERS******************
+
+1. After Update Trigger:-
+delimiter $$
+CREATE TRIGGER after_update
+AFTER
+UPDATE 
+ON depart
+FOR EACH ROW
+BEGIN
+ SET MESSAGE_TEXT = 'UPDATED: data updated successfully.';
+END$$
+
+
+2. Before Update Trigger:-
+
+CREATE TRIGGER before_update
+BEFORE 
+UPDATE 
+ON depart
+FOR EACH ROW
+   INSERT INTO backuptabletrigg (
+            login,  name, salary, experience, last_modified_date
+        )
+        VALUES (
+            OLD.login,  OLD.name, OLD.salary,  OLD.experience, NOW()
+        );
+
+
+3.After Delete Trigger:-
+delimiter $$
+
+CREATE TRIGGER after_delete
+AFTER DELETE ON employee
+FOR EACH ROW
+BEGIN
+ SET MESSAGE_TEXT = 'DELETED: data deleted successfully.';
+END$$
+
+4. Before Delete Trigger:-
+
+CREATE TRIGGER before_delete
+BEFORE DELETE ON employee
+FOR EACH ROW
+   INSERT INTO backuptabletrigg (
+            login,  name, salary, experience, last_modified_date
+        )
+        VALUES (
+            OLD.login,  OLD.name, OLD.salary,  OLD.experience, NOW()
+        );
+
+5. After Insert Trigger:-
+delimiter$$
+CREATE TRIGGER after_insert
+AFTER INSERT ON employee
+FOR EACH ROW
+BEGIN
+ SET MESSAGE_TEXT = 'INSERTED: data INSERTED successfully.';
+END$$
+
+6. Before Insert Trigger:-
+
+CREATE TRIGGER before_insert
+BEFORE INSERT ON employee
+FOR EACH ROW
+   INSERT INTO backuptabletrigg (
+            login,  name, salary, experience, last_modified_date
+        )
+        VALUES (
+            OLD.login,  OLD.name, OLD.salary,  OLD.experience, NOW()
+        );
+
+
+
+#Before Update Trigger with Insert Operation:-
+
+Yeh trigger emp table ke update hone se pehle dept table mein old values ke sath insert karega:
+CREATE TRIGGER before_update
+BEFORE UPDATE ON emp
+FOR EACH ROW
+INSERT INTO dept (dept_id, dept_name) VALUES (OLD.id, OLD.name);
+
+**********************************JOIN************************************
+
+
+1. Inner Join:-
+Yeh join dono tables ke common data ko fetch karta hai jahan emp aur department table ke records id aur dept_id par match karte hain.
+
+QUERY:- SELECT * FROM emp INNER JOIN department ON emp.id = department.dept_id;
+
+Output Explanation:- Yeh query sirf un rows ko return karegi jahan emp.id aur department.dept_id ke values match karte hain. Sirf common records dikhaye jayenge.
+
+************************************************************************
+
+2. Left Join:-
+Yeh join emp table ke sabhi records ko dikhata hai, chahe department table mein matching data ho ya na ho. Agar department mein matching record nahi hai, to uski jagah NULL aayega.
+
+
+QUERY:- SELECT * FROM emp LEFT JOIN department ON emp.id = department.dept_id;
+
+Output Explanation:- Yeh query emp table ke sabhi records ko fetch karti hai, aur agar department table mein matching dept_id nahi milta, to unke corresponding columns ke liye NULL dikhaya jaayega.
+
+************************************************************************
+
+3. Right Join:-
+Yeh join department table ke sabhi records ko dikhata hai, chahe emp table mein matching data ho ya na ho. Agar emp mein matching record nahi hai, to uski jagah NULL aayega.
+
+
+QUERY:- SELECT * FROM emp RIGHT JOIN department ON emp.id = department.dept_id;
+
+Output Explanation:- Yeh query department table ke sabhi records ko fetch karti hai, aur agar emp table mein matching id nahi milta, to unke corresponding columns ke liye NULL dikhaya jaayega.
+
+************************************
+
+4. Full Join / Outer Join:-
+MySQL mein direct FULL JOIN support nahi hota, lekin UNION ka istemal karke full outer join ka kaam kar sakte hain. Yeh query sabhi rows ko emp aur department table se laati hai, chahe match ho ya na ho.
+
+QUERY:- select * from emp left join department on emp.id = department.dept_id  union select * from emp right join department on emp.id = department.dept_id ;
+
+Output Explanation: Yeh query sabhi rows ko return karegi jo emp ya department tables mein hain. Agar matching row nahi hoti, to NULL values fill ki jaayengi.
+
+*********************************************
+
+5. Full Join Alternate Query:-
+Yeh query un rows ko fetch karti hai jo sirf emp ya sirf department table mein hain, lekin dono mein nahi hain. Yeh unmatched rows ko dikhati hai.
+
+ 
+QUERY:- select * from emp left join department on emp.id = department.dept_id  where department.dept_id  is null union select * from emp right join department on emp.id = department.dept_id where emp.id is null;
+
+Output Explanation:- Yeh query un rows ko return karegi jo sirf ek table mein hain, matlab jo emp table mein hain par department mein nahi, ya phir jo department mein hain par emp mein nahi.
+**************************************************
+
+
+
+
+MY SQl Query practies   :-
+
+
+

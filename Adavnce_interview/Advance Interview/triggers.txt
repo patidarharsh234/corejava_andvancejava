@@ -1,0 +1,201 @@
+[KAPIL DUDHE].................
+
+
+CRUD Opration........
+
+create database emp;
+
+Use emp;
+
+Create Table emp (id INT NOT NULL PRIMARY KEY,name VARCHAR(250));
+
+INSERT INTO emp (id, name) VALUES (1, "kapil");
+
+UPDATE emp SET name = 'kapil' WHERE id = 3;
+
+delete FROM emp WHERE Id = 3;
+
+SELECT * FROM emp;
+
+Drop table emp;
+
+Drop database ssp;
+
+Add Coloumn Query - Alter Table emp Add (Salary Int );
+
+********************************************************************************************************8
+ Highest salary Withlimit 
+
+1st high***** select  from emp order by salary desc limit 0,1; 
+2nd high***** select  from emp order by salary desc limit 1,1; 
+3rd high***** select  from emp order by salary desc limit 2,1; 
+4th high***** select  from emp order by salary desc limit 3,1; 
+5th high***** select  from emp order by salary desc limit 4,1; 
+
+*************************************************************************************************
+ Highest salary With OUT limit 
+
+1ST-high****** select max(salary) From emp
+2nd high****** select max(salary) From emp WHERE Salary < (SELECT MAX(salary) From emp);
+3rd-high****** select max(salary) from emp where salary <(select max(salary) from emp where salary <(select max(salary) from emp));
+4th-high****** select max(salary) from emp where salary <(select max(salary) from emp where salary <(select max(salary) from emp where salary<(select max(salary) from emp)));
+5th-high****** select max(salary) from emp where salary <(select max(salary) from emp where salary <(select max(salary) from emp where salary<(select max(salary) from emp where salary<(select max(salary) from emp))));
+
+
+**************************************************************************************************
+
+Marksheet Query With Limit - 
+
+Select roll_no,name,physics,chemistry,maths,(physics + chemistry + maths) as total from st_marksheet Where physics>=33 And Chemistry>=33 And maths>=33 Order by Total desc Limit 0,10;
+
+
+~.Marksheet Query Without Limit - 
+
+Select roll_no,name,physics,chemistry,maths,(physics + chemistry + maths) as Total From st_marksheet Where physics>=33 And Chemistry>=33 And maths>=33 Order by Total desc;
+ 
+
+~. by Percentage
+
+Select roll_no,name,physics,chemistry,maths,((physics + chemistry + maths)/3) as Total From st_marksheet Where physics>=33 And Chemistry>=33 And maths>=33 Order by Total desc;
+
+
+
+**************************************************************************************************
+
+Joins ---------it it used to join two tables...........
+
+(1).  Inner Join ---select * from emp inner join department where emp.id=department.dept_id;************************Common data
+
+
+(2). Left Join ---- select * from emp left join department on emp.id=department.dept_id;**************************Left table FUll & Right Commen
+
+
+(3). Right Join----  select * from emp right join department on emp.id=department.dept_id;**********************LEFT COMMEN DATA & RIGHT FULL
+
+
+(4). Full Join / Outer join 
+
+select * from emp e left join department d on(e.id=d.dept_id) 
+union 
+select * from emp e right join department d on(e.id=d.dept_id);
+
+
+(5). Full Join AlterNate Query 
+
+(select * from emp e left join department d on(e.id=d.dept_id) where e.id is null)
+union
+ (select * from emp e right join department d on(e.id=d.dept_id) where e.id is null);
+*****************************************************************************************************
+
+Group By
+
+ select count(maths) from st_marksheet group by maths ;
+ select count(*) from st_marksheet group by maths ;
+select COUNT(maths),maths from st_marksheet GROUP BY maths HAVING COUNT(maths) > 1
+
+
+******************************************************************************************************
+
+TRIGERSSSSSSSS
+
+After update
+
+
+     create trigger after_update
+     after update on user
+     for each row
+    update user set name= 'hindi' where id =3;
+
+before_update
+
+ create trigger before_update
+     before update on user
+     for each row
+     update user set name = maths where id=1 ;
+
+after delete
+
+ create trigger after_delete
+    after delete on user
+    for each row
+    update user set name= 'science' where id = 3;
+
+
+before delete
+
+
+ create trigger before_delete
+    before delete on user
+     for each row
+    insert into user values(4,"social");
+
+
+after insert
+
+ create trigger after_insert
+     after insert on user
+     for each row
+    delete from user where id = 4;
+
+
+before_insert
+
+ create trigger before_insert
+    before insert on user
+    for each row
+    insert into user values (54, "commerce");
+
+*********************************************************************************************************
+
+last_login 
+
+select last_login from ss where loginid like 'mailto:sky123@gmail.com';
+select count(last_login) from ss where loginid like "mailto:rp123@gmail.com";
+select * from ss where loginid like 'mailto:sky123@gmail.com';
+
+*******************************************************************************************
+foreign key
+
+create table department(id int,dept_name varchar(50),dept_id int,primary key(id),foreign key(dept_id) references emp(id));
+
+alter table emp add foreign key(dept_id) references emp(id);
+
+****************************************************************************************
+cascade
+
+create table department(id int,dept_name varchar(50),dept_id int,primary key(id),foreign key(dept_id) references emp(id) on update cascade on delete cascade);
+
+
+*****************************************************************************************************************************************************************
+
+create trigger before_insert
+     before insert on account
+     for each row
+update emp set salary=salary+1000 where id=1;
+
+
+create trigger after_insert
+     after insert on account
+     for each row
+update emp set salary=salary+1000 where id=1;
+
+
+
+create trigger after_update
+     after update on account
+     for each row
+update emp set salary=salary+1000 where id=2;
+
+
+create trigger before_update
+     before update on account
+     for each row
+update emp set salary=salary+1000 where id=2;
+
+
+
+
+ create trigger after_update
+     after update on account
+     for each row
+    update emp set salary = salary+1000 where id =1;
